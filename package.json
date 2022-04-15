@@ -1,0 +1,19 @@
+{
+  "name": "batchat",
+  "version": "1.0.0",
+  "description": "Chat app inspired from The Batman's rataalada website",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon script.js",
+    "start": "node script.js"
+  },
+  "author": "Kelvin Nguyen",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.3",
+    "socket.io": "^4.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}

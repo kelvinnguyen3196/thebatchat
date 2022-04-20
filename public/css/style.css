@@ -34,9 +34,9 @@ p {
 
 textarea {
     all: unset;
-    background-color: white;
+    background-color: var(--color-bg);
     flex-grow: 1;
-    color: black;
+    color: var(--color-text);
     font-family: 'Source Code Pro', monospace;
     height: auto;
 }

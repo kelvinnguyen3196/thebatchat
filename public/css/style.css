@@ -39,6 +39,11 @@ input {
     font-family: 'Source Code Pro', monospace;
 }
 
-.invisible {
-    visibility: hidden;
+textarea {
+    all: unset;
+    background-color: white;
+    flex-grow: 1;
+    color: var(--color-text);
+    font-family: 'Source Code Pro', monospace;
+    height: auto;
 }

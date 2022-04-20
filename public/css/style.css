@@ -32,13 +32,11 @@ p {
     white-space: pre-wrap;
 }
 
-input {
-    all: unset; /* remove all default styling */
+textarea {
+    all: unset;
+    background-color: var(--color-bg);
     flex-grow: 1;
     color: var(--color-text);
     font-family: 'Source Code Pro', monospace;
-}
-
-.invisible {
-    visibility: hidden;
+    height: auto;
 }

@@ -8,15 +8,11 @@ input.style.height = 0;
 input.style.height = input.scrollHeight + `px`;
 input.value = ``;
 
-const test = function() {
-    input.focus();
-}
-
 // add event listener for when user presses enter
-document.getElementById(`name`).addEventListener('keydown', function(event) {
+input.addEventListener('keydown', function(event) {
     if(event.key === `Enter`) { // after pressing enter send to server
-        // remove focus immediately to stop text area from resizing
-        input.blur();
+        // stop enter key from making a new line
+        event.preventDefault();
         // format name to enter into DOM
         const nameFormatted = `<p>> ${input.value}</p>`;   
         // insert what user entered before input in DOM
@@ -25,12 +21,11 @@ document.getElementById(`name`).addEventListener('keydown', function(event) {
         input.scrollIntoView(false);
         // clear name
         input.value = ``;
-        test();
     }
 });
 
 // add event listener for auto-adjusting height of input
-document.getElementById(`name`).addEventListener(`input`, function() {
+input.addEventListener(`input`, function() {
     this.style.height = 0;
-    this.style.height = this.scrollHeight + `px`;
+    this.style.height = (this.scrollHeight) + `px`;
 });

@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap');
+
+:root {
+    --color-bg: #242424;
+    --color-text: #56FF71;
+}
+
+* {
+    box-sizing: border-box;
+}
+/* general styling */
+html {
+    font-size: 16px;
+    background-color: var(--color-bg);
+}
+
+p {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 1rem;
+    color: var(--color-text);
+    margin: 0;
+}
+/* chat styling */
+.vertical-flex {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.flex {
+    display: flex;
+    white-space: pre-wrap;
+}
+
+input {
+    all: unset; /* remove all default styling */
+    flex-grow: 1;
+    color: var(--color-text);
+    font-family: 'Source Code Pro', monospace;
+}
+
+.invisible {
+    visibility: hidden;
+}

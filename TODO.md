@@ -7,7 +7,7 @@
 - send data to express server to handle creation of room
 ## backend
 - endpoints
-    - POST /create-room - create a room with name and capacity
+    - POST /create-room - create a room with name
         - req.body = 
         {
             "roomName": _

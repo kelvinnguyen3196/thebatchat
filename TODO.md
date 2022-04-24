@@ -4,8 +4,8 @@
 
 ## api endpoints
 - GET /rooms            // gets all room information (names and expiration)
-- POST /createRoom      // create a new room
 - GET /room             // gets room information for specific room
+- POST /createRoom      // create a new room
 
 ## database
 - collections

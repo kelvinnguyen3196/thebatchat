@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const morgan = require('morgan');
 const { MongoClient } = require('mongodb');
 
@@ -21,6 +22,9 @@ let roomsCollection;
         console.log(e);
     }
 })()
+
+// helper functions
+const dateHelper = require(path.join(__dirname, '..', 'helpers', 'dateHelper.js'));
 
 // #region GET endpoints
 // get names and expiration of all rooms
@@ -50,7 +54,7 @@ apiRouter.get('/rooms', async (req, res, next) => {
     res.status(200).send(documents);
 });
 // get all information on a specific room
-apiRouter.get('/:room', async (req, res, next) => {
+apiRouter.get('rooms/:room', async (req, res, next) => {
     const roomName = req.params.room;
     const query = { roomName: roomName };
     const options = {};
@@ -65,6 +69,49 @@ apiRouter.get('/:room', async (req, res, next) => {
     }
 
     res.status(200).send(roomInfo);
+});
+// #endregion
+
+// #region POST endpoints
+apiRouter.post('/createRoom/:roomName', async (req, res, next) => {
+    const roomName = req.params.roomName;
+
+    // check if room exists already
+    const existsQuery = { roomName: roomName };
+    const existsOptions = {
+        projection: {
+            _id: 0,
+            roomName: 1
+        }
+    };
+    let room;
+    try {
+        room = await roomsCollection.findOne(existsQuery, existsOptions);
+    } catch(e) {
+        const error = new Error(`Error checking room existence`);
+        error.status = 400;
+        next(error);
+    }
+    if(room) { // if room exists then send back error
+        res.status(417).send(); // send a 417 error
+        return;
+    }
+
+    // otherwise continue to create room
+    let result;
+    const createQuery = {
+        roomName: roomName,
+        expiration: dateHelper.expirationDate(),
+        messages: []
+    };
+    try {
+        result = roomsCollection.insertOne(createQuery);
+    } catch(e) {
+        const error = new Error(`Error creating new room`);
+        error.status(400);
+        next(error);
+    }
+    res.send(result);
 });
 // #endregion
 

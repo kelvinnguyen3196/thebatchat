@@ -1,6 +1,13 @@
 # design
 ## front end
-## backend
+## server
+
+## api endpoints
+- DELETE /user          // deletes a user from room array
+- GET /rooms            // gets all room information (names and expiration)
+- POST /createRoom      // create a new room
+- GET /room             // gets room information for specific room
+
 ## database
 - collections
     - rooms // stores room information
@@ -11,9 +18,6 @@
             messages: [{    // stores messages
                 username,   // user who sent the message
                 message     // message
-            }, etc],
-            users: [{   // stores users in this room
-                name    // name of user
             }, etc]
         }
 

@@ -13,7 +13,7 @@
     - rooms // stores room information
         - document schema:
         {
-            name: string,
+            roomName: string,
             expiration: date,
             messages: [{    // stores messages
                 username,   // user who sent the message

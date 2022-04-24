@@ -1,19 +1,21 @@
 # design
 ## front end
-### landing page
-- ask user for name
-### room select
-- user will select or create a room
-- send data to express server to handle creation of room
 ## backend
-- endpoints
-    - POST /create-room - create a room with name
-        - req.body = 
+## database
+- collections
+    - rooms // stores room information
+        - document schema:
         {
-            "roomName": _
+            name: string,
+            expiration: date,
+            messages: [{    // stores messages
+                username,   // user who sent the message
+                message     // message
+            }, etc],
+            users: [{   // stores users in this room
+                name    // name of user
+            }, etc]
         }
-    - GET /room-info - returns room's messages, # active, and expiration date
-        - ?roomName=
 
 # features
 ## minimum
@@ -22,8 +24,8 @@
 - [] enter chat rooms
 - [] send messages
 - [] receive message in real time with sockets
-- [] blinking cursor sound
 
 ## extra
 - [] change to predefined themes
 - [] received messages will be displayed one word at a time
+- [] blinking cursor sound

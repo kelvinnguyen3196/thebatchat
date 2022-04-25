@@ -1,6 +1,11 @@
 const express = require('express');
+const cors = require('cors');
 const path = require('path');
 const app = express();
+
+app.use(cors({
+    origin: '*'
+}));
 
 // use public folder for static content
 app.use(express.static(path.join(__dirname, 'public')));

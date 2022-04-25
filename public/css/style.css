@@ -8,6 +8,7 @@
 * {
     box-sizing: border-box;
 }
+
 /* general styling */
 html {
     font-size: 16px;
@@ -20,8 +21,9 @@ p {
     color: var(--color-text);
     margin: 0;
 }
-/* chat styling */
-.vertical-flex {
+
+/* chat layout styling */
+.vertical-flex, #rooms-container, #expiration-container {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -32,6 +34,11 @@ p {
     white-space: pre-wrap;
 }
 
+.flex-width {
+    width: min(100%, 600px);
+    justify-content: space-between;
+}
+
 textarea {
     all: unset;
     background-color: var(--color-bg);
@@ -39,4 +46,13 @@ textarea {
     color: var(--color-text);
     font-family: 'Source Code Pro', monospace;
     height: auto;
+}
+
+.bottom-gap {
+    margin-bottom: 1rem;
+}
+
+/* text styling */
+.bold {
+    font-weight: bold;
 }

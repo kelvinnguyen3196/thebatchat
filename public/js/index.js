@@ -25,6 +25,8 @@ input.addEventListener(`keydown`, function(event) {
         input.style.height = this.scrollHeight + `px`;
         // scroll input into view
         input.scrollIntoView(false);
+
+        // redirect to chat room page
     }
 });
 

@@ -2,21 +2,16 @@
 
 // make GET request to API to get room information
 import apiInfo from './apiUrl.js';
+import dateHelper from './dateHelper.js';
 
 // #region helper functions
-const dateDifferenceMillis = (currDate, expirationDate) => {
-    return Math.abs(expirationDate - currDate);
-}
-
-const dateDifference = (currDate, expirationDate) => {
-    const milliseconds = dateDifferenceMillis(currDate, expirationDate);
-    const days = Math.floor(milliseconds / (24 * 60 * 60 * 1000));
-    const modDays = milliseconds % (24 * 60 * 60 * 1000);
-    const hours = Math.floor(modDays / (60* 60 * 1000));
-    const modHours = milliseconds % (60 * 60 * 1000);
-    const minutes = Math.floor(modHours / (60 * 1000));
-
-    return `${days} days, ${hours} hours, ${minutes} minutes`;
+const setRoomEventListeners = () => {
+    const rooms = document.querySelectorAll(`#rooms-container p`);
+    rooms.forEach((elem) => {
+        elem.addEventListener(`click`, function() {
+            console.log(this.id);
+        });
+    });
 }
 // #endregion
 
@@ -31,15 +26,17 @@ const dateDifference = (currDate, expirationDate) => {
             jsonResponse.forEach((elem) => {
                 const roomNameElem = document.createElement('p');
                 roomNameElem.textContent = `> ${elem.roomName}`;
+                roomNameElem.setAttribute(`id`, `${elem.roomName}`);
                 document.getElementById(`rooms-container`).insertAdjacentElement(`beforeend`, roomNameElem);
 
                 const expirationDate = new Date(elem.expiration);
-                const expirationFormatted = dateDifference(new Date(), expirationDate);
+                const expirationFormatted = dateHelper.dateDifference(new Date(), expirationDate);
                 const date = `<p>${expirationFormatted}</p>`;
                 document.getElementById(`expiration-container`).insertAdjacentHTML(`beforeend`, date);
             });
             console.log(jsonResponse);
         }
+        setRoomEventListeners();
     } catch(e) {
         console.log(e);
     }

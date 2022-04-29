@@ -1,3 +1,6 @@
+# TODO
+- [] export dateDifferenceMillis() and dateDifference() from chatRoom.js and room.js into a separate file so that no need to copy paste
+
 # design
 ## front end
 ## server

@@ -54,7 +54,7 @@ apiRouter.get('/rooms', async (req, res, next) => {
     res.status(200).send(documents);
 });
 // get all information on a specific room
-apiRouter.get('rooms/:room', async (req, res, next) => {
+apiRouter.get('/rooms/:room', async (req, res, next) => {
     const roomName = req.params.room;
     const query = { roomName: roomName };
     const options = {};

@@ -39,6 +39,11 @@ p {
     justify-content: space-between;
 }
 
+.full-width {
+    width: 100%;
+    justify-content: space-between;
+}
+
 textarea {
     all: unset;
     background-color: var(--color-bg);

@@ -14,6 +14,14 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'html', 'index.html'));
 });
 
+app.get('/rooms', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'html', 'chatRoom.html'));
+});
+
+app.get('/rooms/:room', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'html', 'room.html'));
+});
+
 // routes
 const apiRouter = require('./routes/apiRouter.js');
 app.use('/api', apiRouter);

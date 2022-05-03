@@ -89,6 +89,6 @@ textarea {
 }
 
 /* button styling */
-#menu-button, #rooms-container p {
+button {
     cursor: pointer;
 }

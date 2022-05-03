@@ -7,7 +7,7 @@ import siteInfo from './siteInfo.js';
 
 // #region helper functions
 const setRoomEventListeners = () => {
-    const rooms = document.querySelectorAll(`#rooms-container p`);
+    const rooms = document.querySelectorAll(`#rooms-container button`);
     rooms.forEach((elem) => {
         elem.addEventListener(`click`, function() {
             // get user name
@@ -28,7 +28,7 @@ const setRoomEventListeners = () => {
             const jsonResponse = await response.json();
             // insert room information into page
             jsonResponse.forEach((elem) => {
-                const roomNameElem = document.createElement('p');
+                const roomNameElem = document.createElement('button');
                 roomNameElem.textContent = `> ${elem.roomName}`;
                 roomNameElem.setAttribute(`id`, `${elem.roomName}`);
                 document.getElementById(`rooms-container`).insertAdjacentElement(`beforeend`, roomNameElem);

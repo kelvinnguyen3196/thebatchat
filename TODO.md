@@ -2,6 +2,7 @@
 - [] fix the TimeHelper.js class - by taking absolute value when 
 calculating time, if it is past the expiration date it still 
 displays as positive and into the future
+- [] modify HTML to make it semantic
 
 # design
 ## front end

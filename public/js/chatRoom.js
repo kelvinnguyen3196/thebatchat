@@ -3,13 +3,17 @@
 // make GET request to API to get room information
 import apiInfo from './apiUrl.js';
 import dateHelper from './dateHelper.js';
+import siteInfo from './siteInfo.js';
 
 // #region helper functions
 const setRoomEventListeners = () => {
     const rooms = document.querySelectorAll(`#rooms-container p`);
     rooms.forEach((elem) => {
         elem.addEventListener(`click`, function() {
-            console.log(this.id);
+            // get user name
+            const userName = window.location.href.split(`=`)[1];
+            // redirect to room's page
+            window.location.href = `${siteInfo.url}:${siteInfo.port}/rooms/${this.id}?name=${userName}`;
         });
     });
 }

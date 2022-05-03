@@ -22,6 +22,14 @@ p {
     margin: 0;
 }
 
+button {
+    all: unset;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 1rem;
+    color: var(--color-text);
+    margin: 0;
+}
+
 /* chat layout styling */
 .vertical-flex, #rooms-container, #expiration-container {
     display: flex;
@@ -40,7 +48,7 @@ p {
     justify-content: space-between;
 }
 
-.flex-title p {
+.flex-title > * {
     flex-grow: 1;
     flex-basis: 0;
 }
@@ -78,4 +86,9 @@ textarea {
 /* text styling */
 .bold {
     font-weight: bold;
+}
+
+/* button styling */
+#menu-button, #rooms-container p {
+    cursor: pointer;
 }

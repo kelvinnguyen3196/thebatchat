@@ -1,5 +1,6 @@
 import apiInfo from './apiUrl.js';
 import dateHelper from './dateHelper.js';
+import siteInfo from './siteInfo.js';
 
 // get room name
 const urlParams = window.location.pathname.split(`/`);
@@ -9,6 +10,11 @@ const roomName = urlParams[urlParams.length - 1];
 document.title = `batchat - ${roomName}`;
 // set room name
 document.getElementById(`room-name`).textContent = roomName;
+// set event listener to go back to menu
+document.getElementById(`menu-button`).addEventListener(`click`, () => {
+    const userName = window.location.href.split(`=`)[1];
+    window.location.href = `${siteInfo.url}:${siteInfo.port}/rooms?name=${userName}`;
+});
 
 // #region helper functions
 const roomSetup = (roomObj) => {

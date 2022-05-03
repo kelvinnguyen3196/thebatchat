@@ -1,3 +1,5 @@
+import siteInfo from './siteInfo.js';
+
 // get reference to input element
 const input = document.getElementById(`name`);
 // immediately focus input when page loads
@@ -14,11 +16,12 @@ input.addEventListener(`keydown`, function(event) {
         event.preventDefault();
         // create new p element
         const nameFormatted = document.createElement(`p`);
-        // insert user input safely wiht textContent
+        // insert user input safely with textContent
         nameFormatted.textContent = `> ${input.value}`;
         // insert what user entered before input in DOM
         document.getElementById(`name-input`).insertAdjacentElement(`beforebegin`, nameFormatted);
-        // clear name
+        // save and clear name
+        const userName = input.value;
         input.value = ``;
         // resize textarea
         input.style.height = 0;
@@ -27,6 +30,7 @@ input.addEventListener(`keydown`, function(event) {
         input.scrollIntoView(false);
 
         // redirect to chat room page
+        window.location.href = `${siteInfo.url}:${siteInfo.port}/rooms?name=${userName}`;
     }
 });
 

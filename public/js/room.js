@@ -15,7 +15,7 @@ const roomSetup = (roomObj) => {
     // set expiration date
     const expirationDate = new Date(roomObj.expiration);
     const expirationFormatted = dateHelper.dateDifference(new Date(), expirationDate);
-    const date = `<p>${expirationFormatted}</p>`;
+    const date = `${expirationFormatted}`;
     document.getElementById(`remaining-time`).insertAdjacentHTML(`beforeend`, date);
 
     console.log(roomObj);

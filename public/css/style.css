@@ -34,13 +34,27 @@ p {
     white-space: pre-wrap;
 }
 
-.flex-width {
-    width: min(100%, 600px);
+.flex-title {
+    display: flex;
+    width: 100%;
     justify-content: space-between;
 }
 
-.full-width {
-    width: 100%;
+.flex-title p {
+    flex-grow: 1;
+    flex-basis: 0;
+}
+
+.flex-title p:nth-child(2) {
+    text-align: center;
+}
+
+.flex-title p:nth-child(3) {
+    text-align: right;
+}
+
+.flex-width {
+    width: min(100%, 600px);
     justify-content: space-between;
 }
 
@@ -57,6 +71,10 @@ textarea {
     margin-bottom: 1rem;
 }
 
+#number-active {
+    width: max-content;
+    margin-inline: auto;
+}
 /* text styling */
 .bold {
     font-weight: bold;

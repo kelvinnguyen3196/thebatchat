@@ -70,6 +70,10 @@ apiRouter.get('/rooms/:room', async (req, res, next) => {
 
     res.status(200).send(roomInfo);
 });
+// get amount of people active in socket.io room
+apiRouter.get('/rooms/:room/activeCount', async (req, res, next) => {
+
+});
 // #endregion
 
 // #region POST endpoints

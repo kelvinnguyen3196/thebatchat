@@ -1,5 +1,7 @@
 # TODO
-- [] export dateDifferenceMillis() and dateDifference() from chatRoom.js and room.js into a separate file so that no need to copy paste
+- [] fix the TimeHelper.js class - by taking absolute value when 
+calculating time, if it is past the expiration date it still 
+displays as positive and into the future
 
 # design
 ## front end

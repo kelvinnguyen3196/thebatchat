@@ -3,6 +3,8 @@
 calculating time, if it is past the expiration date it still 
 displays as positive and into the future
 - [] modify HTML to make it semantic
+- [] removed margin and padding from body 
+    - would like it back, but it creates a scrollbar
 
 # design
 ## front end

@@ -117,6 +117,36 @@ apiRouter.post('/createRoom/:roomName', async (req, res, next) => {
     }
     res.send(result);
 });
+// receive and add message to room
+/* // #region example body
+req.body = 
+{
+    "name": string,
+    "message": string
+}
+*/ // #endregion
+apiRouter.post('/sendMessage/:roomName', async (req, res, next) => {
+    // get arguments
+    const userName = req.body.name;
+    const message = req.body.message;
+    const roomName = req.params.roomName;
+    let result;
+
+    // insert into MongoDB
+    try {
+        const filter = { roomName: roomName };
+        const update = { $push: { messages: {
+            name: userName,
+            message: message
+        } } };
+        result = await roomsCollection.updateOne(filter, update);
+    } catch(e) {
+        const error = new Error(`Error posting new message to ${roomName}`);
+        error.status = 400;
+        next(error);
+    }
+    res.send(result);
+});
 // #endregion
 
 // error handler

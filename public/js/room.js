@@ -2,6 +2,19 @@ import apiInfo from './apiUrl.js';
 import dateHelper from './dateHelper.js';
 import siteInfo from './siteInfo.js';
 
+// #region helper functions
+const formattedName = (name) => {
+    if(name.length === 6) return name;
+    else if(name.length > 6) {
+        const numExtra = name.length - 6;
+        return name.substring(0, name.length - numExtra);
+    }
+    else if(name.length < 6) {
+        return name.padEnd(6);
+    }
+}
+// #endregion
+
 // get reference to message element and focus
 const messageInput = document.getElementById(`message`);
 messageInput.focus();
@@ -9,7 +22,7 @@ messageInput.focus();
 // get room name
 const urlParams = window.location.pathname.split(`/`);
 const roomName = urlParams[urlParams.length - 1];
-const userName = window.location.href.split(`=`)[1];
+const userName = formattedName(window.location.href.split(`=`)[1]);
 
 // set page title
 document.title = `batchat - ${roomName}`;
@@ -35,7 +48,8 @@ const roomSetup = (roomObj) => {
     
     const messagesContainer = document.getElementById(`message-container`);
     roomObj.messages.forEach((elem) => {
-        const message = `${elem.name} > ${elem.message}`;
+        const message = `${formattedName(elem.name)} > ${elem.message}`;
+        console.log(formattedName(elem.name) + 'here');
         const msgElem = document.createElement(`p`);
         msgElem.textContent = message;
         messagesContainer.insertAdjacentElement(`beforeend`, msgElem);

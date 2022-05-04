@@ -2,14 +2,21 @@ import apiInfo from './apiUrl.js';
 import dateHelper from './dateHelper.js';
 import siteInfo from './siteInfo.js';
 
+// get reference to message element and focus
+const messageInput = document.getElementById(`message`);
+messageInput.focus();
+
 // get room name
 const urlParams = window.location.pathname.split(`/`);
 const roomName = urlParams[urlParams.length - 1];
+const userName = window.location.href.split(`=`)[1];
 
 // set page title
 document.title = `batchat - ${roomName}`;
 // set room name
 document.getElementById(`room-name`).textContent = roomName;
+// set user name
+document.getElementById(`username`).textContent = `${userName} > `;
 // set event listener to go back to menu
 document.getElementById(`menu-button`).addEventListener(`click`, () => {
     const userName = window.location.href.split(`=`)[1];

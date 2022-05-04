@@ -30,6 +30,12 @@ button {
     margin: 0;
 }
 
+body {
+    margin: 0px;
+    padding: 0px;
+    height: 100vh;
+}
+
 /* chat layout styling */
 .vertical-flex, #rooms-container, #expiration-container {
     display: flex;
@@ -40,6 +46,11 @@ button {
 .flex {
     display: flex;
     white-space: pre-wrap;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
 }
 
 .flex-title {
@@ -83,6 +94,15 @@ textarea {
     width: max-content;
     margin-inline: auto;
 }
+
+#message-wrapper {
+    flex-grow: 1;
+}
+
+#message-input {
+    margin-top: auto;
+}
+
 /* text styling */
 .bold {
     font-weight: bold;

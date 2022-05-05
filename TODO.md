@@ -5,6 +5,7 @@ displays as positive and into the future
 - [] modify HTML to make it semantic
 - [] removed margin and padding from body 
     - would like it back, but it creates a scrollbar
+- [] room.js line 59 make it make negate if so that there is less nesting
 
 # design
 ## front end

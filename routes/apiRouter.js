@@ -115,7 +115,7 @@ apiRouter.post('/createRoom/:roomName', async (req, res, next) => {
         error.status(400);
         next(error);
     }
-    res.send(result);
+    res.status(200).send(result);
 });
 // receive and add message to room
 /* // #region example body

@@ -39,8 +39,10 @@ messageInput.focus();
 
 // get room name
 const urlParams = window.location.pathname.split(`/`);
-const roomName = urlParams[urlParams.length - 1];
+let roomName = urlParams[urlParams.length - 1];
 const userName = formattedName(window.location.href.split(`=`)[1]);
+// replace %20 with space
+roomName = roomName.replace(`%20`, ` `);
 
 // set page title
 document.title = `batchat - ${roomName}`;

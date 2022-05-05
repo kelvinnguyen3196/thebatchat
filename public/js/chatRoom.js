@@ -1,6 +1,3 @@
-// need to figure out how to get name from previous page
-
-// make GET request to API to get room information
 import apiInfo from './apiUrl.js';
 import dateHelper from './dateHelper.js';
 import siteInfo from './siteInfo.js';

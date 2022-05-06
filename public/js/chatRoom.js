@@ -107,15 +107,18 @@ addRoomButton.addEventListener(`click`, function() {
             const jsonResponse = await response.json();
             // insert room information into page
             jsonResponse.forEach((elem) => {
+                // check if room has expired
+                const expirationDate = new Date(elem.expiration);
+                // if current date is after expiration then room has expired
+                if(expirationDate < new Date()) return;
+                const expirationFormatted = dateHelper.dateDifference(new Date(), expirationDate);
+                const date = `<p>${expirationFormatted}</p>`;
+                document.getElementById(`expiration-container`).insertAdjacentHTML(`beforeend`, date);
+
                 const roomNameElem = document.createElement('button');
                 roomNameElem.textContent = `> ${elem.roomName}`;
                 roomNameElem.setAttribute(`id`, `${elem.roomName}`);
                 document.getElementById(`rooms-container`).insertAdjacentElement(`beforeend`, roomNameElem);
-
-                const expirationDate = new Date(elem.expiration);
-                const expirationFormatted = dateHelper.dateDifference(new Date(), expirationDate);
-                const date = `<p>${expirationFormatted}</p>`;
-                document.getElementById(`expiration-container`).insertAdjacentHTML(`beforeend`, date);
             });
             console.log(jsonResponse);
         }

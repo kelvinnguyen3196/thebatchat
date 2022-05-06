@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
 const { MongoClient } = require('mongodb');
+const cron = require('node-cron');
 
 const apiRouter = express.Router();
 
@@ -22,6 +23,11 @@ let roomsCollection;
         console.log(e);
     }
 })()
+
+// schedule room deletion
+cron.schedule('0 */4 * * *', () => {
+    
+});
 
 // helper functions
 const dateHelper = require(path.join(__dirname, '..', 'helpers', 'dateHelper.js'));

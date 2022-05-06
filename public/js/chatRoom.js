@@ -15,7 +15,7 @@ const setRoomEventListeners = () => {
     });
 }
 
-const setAddRoomEventListener = () => {
+const setAddRoomEventListener = async () => {
     const roomNameInput = document.getElementById(`room-name-input`);
     roomNameInput.addEventListener(`keydown`, async function(event) {
         // if not enter button return
@@ -24,6 +24,33 @@ const setAddRoomEventListener = () => {
         event.preventDefault();
         // get room name
         const roomName = roomNameInput.value;
+        // check if room exists
+        try {
+            const link = `${apiInfo.url}:${apiInfo.port}/api/rooms/${roomName}`;
+            const request = await fetch(link);
+            if(request.ok) {
+                const jsonResponse = await request.text();
+                console.log(jsonResponse);
+                if(jsonResponse) {  // if found means duplicate room
+                    // insert what user just typed
+                    const inputContainer = document.getElementById(`new-room-input-container`);
+                    const duplicateNameElem = document.createElement(`p`);
+                    duplicateNameElem.textContent = `> ${roomName}`;
+                    inputContainer.insertAdjacentElement(`beforebegin`, duplicateNameElem);
+                    // insert duplicate room message
+                    const errorMessage = document.createElement(`p`);
+                    errorMessage.textContent = `> a room exists with this name`;
+                    inputContainer.insertAdjacentElement(`beforebegin`, errorMessage);
+                    // clear input field
+                    const input = document.getElementById(`room-name-input`);
+                    input.value = ``;
+                    // refocus input
+                    input.focus();
+                }
+            }
+        } catch(e) {
+            console.log(e);
+        }
         // if room name is blank then return
         if(roomName === ``) return;
         // make api call
@@ -52,14 +79,13 @@ const addRoomButton = document.getElementById(`add-room-button`);
 addRoomButton.addEventListener(`click`, function() {
     // hide ++ button
     addRoomButton.style.visibility = `hidden`;
-    // get room creation container
-    const roomCreationContainer = document.getElementById(`room-creation-container`);
+    // get input container
+    const inputContainer = document.getElementById(`new-room-input-container`);
     // create question element
     const question = document.createElement(`p`);
     question.textContent = `> room name?`;
-    roomCreationContainer.insertAdjacentElement(`afterbegin`, question);
+    inputContainer.insertAdjacentElement(`beforebegin`, question);
     // insert angle bracket before room name input
-    const inputContainer = document.getElementById(`new-room-input-container`);
     const angleBracket = document.createElement(`p`);
     angleBracket.textContent = `> `;
     inputContainer.insertAdjacentElement(`beforeend`, angleBracket);

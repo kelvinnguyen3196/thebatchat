@@ -4,8 +4,8 @@
   "description": "Chat app inspired from The Batman's rataalada website",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon script.js",
-    "start": "node script.js"
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "author": "Kelvin Nguyen",
   "license": "ISC",

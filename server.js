@@ -1,15 +1,19 @@
 const express = require('express');
+const cors = require('cors');
 const path = require('path');
+const app = express();
 const morgan = require('morgan');
 const { MongoClient } = require('mongodb');
 const cron = require('node-cron');
 
-const apiRouter = express.Router();
+app.use(cors({
+    origin: '*'
+}));
 
-apiRouter.use(morgan('dev'));
-apiRouter.use(express.json());
+app.use(morgan('dev'));
+app.use(express.json());
 
-// connect to MongoDB
+// #region connect to MongoDB
 const password = "oRD0QLvrKCNac4XA";
 const dbName = `batchat`;
 const uri = `mongodb+srv://admin:${password}@cluster0.izcz7.mongodb.net/${dbName}?retryWrites=true&w=majority`
@@ -23,6 +27,23 @@ let roomsCollection;
         console.log(e);
     }
 })()
+// #endregion
+
+// #region static content
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'html', 'index.html'));
+});
+
+app.get('/rooms', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'html', 'chatRoom.html'));
+});
+
+app.get('/rooms/:room', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'html', 'room.html'));
+});
+// #endregion
 
 // schedule daily room deletion
 cron.schedule('0 0 * * *', async () => {
@@ -61,11 +82,11 @@ cron.schedule('0 0 * * *', async () => {
 });
 
 // helper functions
-const dateHelper = require(path.join(__dirname, '..', 'helpers', 'dateHelper.js'));
+const dateHelper = require(path.join(__dirname, 'helpers', 'dateHelper.js'));
 
 // #region GET endpoints
 // get names and expiration of all rooms
-apiRouter.get('/rooms', async (req, res, next) => {
+app.get('/api/rooms', async (req, res, next) => {
     const query = {};
     const options = { 
         projection: {   // which properties to include
@@ -91,7 +112,7 @@ apiRouter.get('/rooms', async (req, res, next) => {
     res.status(200).send(documents);
 });
 // get all information on a specific room
-apiRouter.get('/rooms/:room', async (req, res, next) => {
+app.get('/api/rooms/:room', async (req, res, next) => {
     const roomName = req.params.room;
     const query = { roomName: roomName };
     const options = {};
@@ -108,13 +129,13 @@ apiRouter.get('/rooms/:room', async (req, res, next) => {
     res.status(200).send(roomInfo);
 });
 // get amount of people active in socket.io room
-apiRouter.get('/rooms/:room/activeCount', async (req, res, next) => {
+app.get('/api/rooms/:room/activeCount', async (req, res, next) => {
 
 });
 // #endregion
 
 // #region POST endpoints
-apiRouter.post('/createRoom/:roomName', async (req, res, next) => {
+app.post('/api/createRoom/:roomName', async (req, res, next) => {
     const roomName = req.params.roomName;
 
     // check if room exists already
@@ -162,7 +183,7 @@ req.body =
     "message": string
 }
 */ // #endregion
-apiRouter.post('/sendMessage/:roomName', async (req, res, next) => {
+app.post('/api/sendMessage/:roomName', async (req, res, next) => {
     // get arguments
     const userName = req.body.name;
     const message = req.body.message;
@@ -194,7 +215,7 @@ req.body =
     "rooms": ["room1", "room2"];
 }
 */ // #endregion
-apiRouter.delete('/deleteRooms', async (req, res, next) => {
+app.delete('/api/deleteRooms', async (req, res, next) => {
     // get rooms to delete
     const rooms = req.body.rooms;
     const query = { roomName: { $in: rooms } };
@@ -204,9 +225,12 @@ apiRouter.delete('/deleteRooms', async (req, res, next) => {
 // #endregion
 
 // error handler
-apiRouter.use((err, req, res, next) => {
+app.use((err, req, res, next) => {
     const status = err.status || 500;
     res.status(status).send(err.message);
 });
 
-module.exports = apiRouter;
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () =>  {
+    console.log(`Server is running on port ${PORT}...`);
+});

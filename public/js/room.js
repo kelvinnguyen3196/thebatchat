@@ -2,15 +2,19 @@ import apiInfo from './apiUrl.js';
 import dateHelper from './dateHelper.js';
 import siteInfo from './siteInfo.js';
 
+const MAX_NAME_LENGTH = 7;
+
 // #region helper functions
 const formattedName = (name) => {
-    if(name.length === 6) return name;
-    else if(name.length > 6) {
-        const numExtra = name.length - 6;
-        return name.substring(0, name.length - numExtra);
+    let userName = name;
+    userName = userName.replaceAll(`%20`, ` `);
+    if(userName.length === MAX_NAME_LENGTH) return userName;
+    else if(userName.length > MAX_NAME_LENGTH) {
+        const numExtra = userName.length - MAX_NAME_LENGTH;
+        return userName.substring(0, userName.length - numExtra);
     }
-    else if(name.length < 6) {
-        return name.padEnd(6);
+    else if(userName.length < MAX_NAME_LENGTH) {
+        return userName.padEnd(MAX_NAME_LENGTH);
     }
 }
 
@@ -40,9 +44,38 @@ messageInput.focus();
 // get room name
 const urlParams = window.location.pathname.split(`/`);
 let roomName = urlParams[urlParams.length - 1];
-const userName = formattedName(window.location.href.split(`=`)[1]);
+let userName = formattedName(window.location.href.split(`=`)[1]);
 // replace %20 with space
 roomName = roomName.replaceAll(`%20`, ` `);
+
+// #region socket.io
+// connect to socket.io
+const socket = io({
+    query: {
+        room: roomName,
+        userName: userName
+    }
+});
+// ==================== socket.on ====================
+// #region 'welcome' welcome player
+socket.on('welcome', () => {
+    console.log(`Welcome player!`);
+});
+// #endregion
+// #region 'numActive' receive num of active users in room and set value on page
+socket.on(`numActive`, (numActive) => {
+    document.getElementById(`number-active`).textContent = `${numActive} active`;
+});
+// #endregion
+// #region 'receivedMessage'
+socket.on(`receivedMessage`, (name, message) => {
+    const messageContainer = document.getElementById(`message-container`);
+    const newMessage = document.createElement(`p`);
+    newMessage.textContent = `${name} > ${message}`;
+    messageContainer.insertAdjacentElement(`beforeend`, newMessage);
+});
+// #endregion
+// #endregion
 
 // set page title
 document.title = `batchat - ${roomName}`;
@@ -80,6 +113,8 @@ messageInput.addEventListener(`keydown`, async function(event) {
         } catch(e) {
             console.log(e);
         }
+        // send message to socketio server to broadcast
+        socket.emit(`sendMessage`, userName, message.value);
         // clear message field
         message.value = '';
     }
@@ -98,3 +133,4 @@ messageInput.addEventListener(`keydown`, async function(event) {
         console.log(e);
     }
 })()
+

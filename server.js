@@ -2,6 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const app = express();
+const socketio = require('socket.io');
+const http = require('http');
+const server = http.createServer(app);
+const io = socketio(server);
 const morgan = require('morgan');
 const { MongoClient } = require('mongodb');
 const cron = require('node-cron');
@@ -83,6 +87,38 @@ cron.schedule('0 0 * * *', async () => {
 
 // helper functions
 const dateHelper = require(path.join(__dirname, 'helpers', 'dateHelper.js'));
+
+// #region socket.io
+io.on('connection', socket => {
+    // #region on connection set up
+    // join room
+    const roomName = socket.handshake.query.room;
+    // save username - could be useful later
+    const userName = socket.handshake.query.userName;
+    socket.join(roomName);
+    socket.emit(`welcome`);
+    // on connection, emit to update num active for all users connected
+    const rooms = io.sockets.adapter.rooms;
+    const room = rooms.get(roomName);
+    const roomSize = room ? room.size : 0;
+    io.sockets.in(roomName).emit(`numActive`, roomSize);
+    // #endregion
+
+    // ==================== socket.on ====================
+    // #region 'sendMessage' broadcast sent message to all users
+    socket.on(`sendMessage`, (name, message) => {
+        io.sockets.in(roomName).emit(`receivedMessage`, name, message);
+        console.log(`Sending message: name - ${name} > ${message}`);
+    });
+    // #endregion
+    // #region 'disconnect'
+    socket.on(`disconnect`, () => {
+        // broadcast to all sockets that we are leaving room to update active
+        io.sockets.in(roomName).emit(`numActive`, roomSize - 1);
+    });
+    // #endregion
+});
+// #endregion
 
 // #region GET endpoints
 // get names and expiration of all rooms
@@ -231,6 +267,6 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () =>  {
+server.listen(PORT, () =>  {
     console.log(`Server is running on port ${PORT}...`);
 });

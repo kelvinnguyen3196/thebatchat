@@ -42,7 +42,7 @@ const urlParams = window.location.pathname.split(`/`);
 let roomName = urlParams[urlParams.length - 1];
 const userName = formattedName(window.location.href.split(`=`)[1]);
 // replace %20 with space
-roomName = roomName.replace(`%20`, ` `);
+roomName = roomName.replaceAll(`%20`, ` `);
 
 // set page title
 document.title = `batchat - ${roomName}`;

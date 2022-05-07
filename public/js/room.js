@@ -15,7 +15,7 @@ const formattedName = (name) => {
     }
     else if(userName.length < MAX_NAME_LENGTH) {
         return userName.padEnd(MAX_NAME_LENGTH);
-    } 
+    }
 }
 
 const roomSetup = (roomObj) => {

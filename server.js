@@ -6,7 +6,7 @@ const socketio = require('socket.io');
 const http = require('http');
 const server = http.createServer(app);
 const io = socketio(server);
-const morgan = require('morgan');
+// const morgan = require('morgan');
 const { MongoClient } = require('mongodb');
 const cron = require('node-cron');
 
@@ -14,8 +14,8 @@ app.use(cors({
     origin: '*'
 }));
 
-app.use(morgan('dev'));
-app.use(express.json());
+// app.use(morgan('dev'));
+// app.use(express.json());
 
 // #region connect to MongoDB
 const password = "oRD0QLvrKCNac4XA";

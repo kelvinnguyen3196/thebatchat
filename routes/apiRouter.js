@@ -24,9 +24,40 @@ let roomsCollection;
     }
 })()
 
-// schedule room deletion
-cron.schedule('0 */4 * * *', () => {
+// schedule daily room deletion
+cron.schedule('0 0 * * *', async () => {
+    const roomsToDelete = [];
+    const rooms = [];
+    // get all rooms
+    const query = {};
+    const options = {
+        projection: {
+            _id: 0,
+            roomName: 1,
+            expiration: 1
+        }
+    };
+    try {
+        const cursor = roomsCollection.find(query, options);
+        await cursor.forEach((elem) => {
+            rooms.push(elem);
+        });
+    } catch(e) {
+        const error = new Error(`Error with getting all rooms in daily purge`);
+        error.status = 400;
+        next(error);
+    }
     
+    // find out which rooms are due for deletion
+    rooms.forEach((room) => {
+        const expiration = new Date(room.expiration);
+        // if room has expired push to delete array
+        if(expiration < new Date()) roomsToDelete.push(room.roomName);
+    });
+    
+    // delete rooms
+    const deleteQuery = { roomName: { $in: roomsToDelete } };
+    const result = await roomsCollection.deleteMany(query);
 });
 
 // helper functions
@@ -152,6 +183,23 @@ apiRouter.post('/sendMessage/:roomName', async (req, res, next) => {
         next(error);
     }
     res.send(result);
+});
+// #endregion
+
+// #region DELETE endpoints
+// delete all rooms in array from body
+/* // #region example body
+req.body =
+{
+    "rooms": ["room1", "room2"];
+}
+*/ // #endregion
+apiRouter.delete('/deleteRooms', async (req, res, next) => {
+    // get rooms to delete
+    const rooms = req.body.rooms;
+    const query = { roomName: { $in: rooms } };
+    const result = await roomsCollection.deleteMany(query);
+    res.status(204).send();
 });
 // #endregion
 

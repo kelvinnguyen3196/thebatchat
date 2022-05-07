@@ -32,7 +32,7 @@ let roomsCollection;
     }
 })()
 // #endregion
-
+console.log(process.env.PORT);
 // #region static content
 app.use(express.static(path.join(__dirname, 'public')));
 

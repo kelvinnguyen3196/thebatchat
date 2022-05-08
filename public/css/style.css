@@ -50,8 +50,8 @@ body {
     overflow: hidden;
 }
 
-.flex-width > * {
-    width: 50%;
+.flex-width > :nth-child(1) {
+    width: 60%;
 }
 
 .flex {
@@ -84,7 +84,7 @@ body {
 }
 
 .flex-width {
-    width: min(100%, 700px);
+    width: min(100%, 500px);
     /* width: 700px; */
     justify-content: space-between;
 }

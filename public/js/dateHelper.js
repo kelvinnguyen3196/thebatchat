@@ -10,7 +10,7 @@ const dateDifference = (currDate, expirationDate) => {
     const modHours = milliseconds % (60 * 60 * 1000);
     const minutes = Math.floor(modHours / (60 * 1000));
 
-    return `${days} days, ${hours} hours, ${minutes} minutes`;
+    return `${days}d, ${hours}h, ${minutes}m`;
 }
 
 export default {

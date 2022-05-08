@@ -41,6 +41,10 @@ const roomSetup = (roomObj) => {
 const messageInput = document.getElementById(`message`);
 messageInput.focus();
 
+// fix fixed message input
+const offsetHeight = document.getElementById(`message-input`).offsetHeight;
+document.getElementById(`message-wrapper`).style.paddingBottom = offsetHeight + 8 + `px`;
+
 // get room name
 const urlParams = window.location.pathname.split(`/`);
 let roomName = urlParams[urlParams.length - 1];
@@ -118,6 +122,8 @@ messageInput.addEventListener(`keydown`, async function(event) {
         socket.emit(`sendMessage`, userName, message.value);
         // clear message field
         message.value = '';
+        // scroll to bottom of page
+        window.scrollTo(0, document.body.scrollHeight);
     }
 });
 
@@ -133,5 +139,7 @@ messageInput.addEventListener(`keydown`, async function(event) {
     } catch(e) {
         console.log(e);
     }
+    // scroll to bottom of page
+    window.scrollTo(0, document.body.scrollHeight);
 })()
 

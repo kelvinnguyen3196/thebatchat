@@ -9,10 +9,13 @@ const io = socketio(server);
 // const morgan = require('morgan');
 const { MongoClient } = require('mongodb');
 const cron = require('node-cron');
+const bodyParser = require('body-parser');
 
 app.use(cors({
     origin: '*'
 }));
+
+app.use(bodyParser.json());
 
 // app.use(morgan('dev'));
 // app.use(express.json());

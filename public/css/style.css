@@ -44,6 +44,11 @@ body {
     gap: 0.5rem;
 }
 
+#expiration-container p {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
 .flex {
     display: flex;
     white-space: pre-wrap;
@@ -74,7 +79,7 @@ body {
 }
 
 .flex-width {
-    width: min(100%, 900px);
+    width: min(100%, 700px);
     justify-content: space-between;
 }
 
@@ -103,6 +108,8 @@ textarea {
 #message-input {
     margin-top: auto;
 }
+
+
 
 /* text styling */
 .bold {

@@ -29,7 +29,7 @@
 - [x] create chat rooms
 - [x] enter chat rooms
 - [x] send messages
-- [] receive message in real time with sockets
+- [x] receive message in real time with sockets
 
 ## extra
 - [] change to predefined themes

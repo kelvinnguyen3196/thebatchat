@@ -1,7 +1,5 @@
-const url = `thebatchat.herokuapp.com`;
-const port = `80`;
+const url = `https://thebatchat.herokuapp.com`;
 
 export default {
-    url,
-    port
+    url
 }

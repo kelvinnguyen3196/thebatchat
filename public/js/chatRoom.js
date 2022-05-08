@@ -26,7 +26,7 @@ const setAddRoomEventListener = async () => {
         const roomName = roomNameInput.value;
         // check if room exists
         try {
-            const link = `api/rooms/${roomName}`;
+            const link = `//${apiInfo.url}/api/rooms/${roomName}`;
             const request = await fetch(link);
             if(request.ok) {
                 const jsonResponse = await request.text();
@@ -54,7 +54,7 @@ const setAddRoomEventListener = async () => {
         // if room name is blank then return
         if(roomName === ``) return;
         // make api call
-        const link = `api/createRoom/${roomName}`;
+        const link = `//${apiInfo.url}/api/createRoom/${roomName}`;
         try {
             const response = await fetch(link, {
                 method: `POST`,
@@ -101,7 +101,7 @@ addRoomButton.addEventListener(`click`, function() {
 // immediately invoked function - load room information on page
 (async () => {
     try {
-        const endpoint = `/api/rooms`;
+        const endpoint = `//${apiInfo.url}/api/rooms`;
         const response = await fetch(`${endpoint}`);
         if(response.ok) {
             const jsonResponse = await response.json();

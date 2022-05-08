@@ -101,7 +101,7 @@ messageInput.addEventListener(`keydown`, async function(event) {
             'name': userName,
             'message': message.value
         }
-        const link = `api/sendMessage/${roomName}`;
+        const link = `//${apiInfo.url}/api/sendMessage/${roomName}`;
         try {
             const response = await fetch(link, {
                 method: 'POST',
@@ -123,7 +123,7 @@ messageInput.addEventListener(`keydown`, async function(event) {
 // immediately invoked function - get all data for specific room
 (async () => {
     try {
-        const endpoint = `//api/rooms/${roomName}`;
+        const endpoint = `//${apiInfo.url}/api/rooms/${roomName}`;
             const response = await fetch(`${endpoint}`);
         if(response.ok) {
             const jsonResponse = await response.json();

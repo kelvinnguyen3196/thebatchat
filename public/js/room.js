@@ -86,7 +86,7 @@ document.getElementById(`username`).textContent = `${userName} > `;
 // set event listener to go back to menu
 document.getElementById(`menu-button`).addEventListener(`click`, () => {
     const userName = window.location.href.split(`=`)[1];
-    window.location.href = `rooms?name=${userName}`;
+    window.location.href = `${siteInfo.url}/rooms?name=${userName}`;
 });
 
 // add event listener for when user presses enter

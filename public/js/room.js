@@ -123,7 +123,7 @@ messageInput.addEventListener(`keydown`, async function(event) {
 // immediately invoked function - get all data for specific room
 (async () => {
     try {
-        const endpoint = `api/rooms/${roomName}`;
+        const endpoint = `//api/rooms/${roomName}`;
             const response = await fetch(`${endpoint}`);
         if(response.ok) {
             const jsonResponse = await response.json();

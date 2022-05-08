@@ -10,7 +10,7 @@ const setRoomEventListeners = () => {
             // get user name
             const userName = window.location.href.split(`=`)[1];
             // redirect to room's page
-            window.location.href = `rooms/${this.id}?name=${userName}`;
+            window.location.href = `${siteInfo.url}/rooms/${this.id}?name=${userName}`;
         });
     });
 }

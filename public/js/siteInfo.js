@@ -1,4 +1,4 @@
-const url = `www.thebatchat.com`;
+const url = `thebatchat.com`;
 const port = `80`;
 
 export default {

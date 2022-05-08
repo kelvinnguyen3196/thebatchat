@@ -10,7 +10,7 @@ const setRoomEventListeners = () => {
             // get user name
             const userName = window.location.href.split(`=`)[1];
             // redirect to room's page
-            window.location.href = `${siteInfo.url}:${siteInfo.port}/rooms/${this.id}?name=${userName}`;
+            window.location.href = `${siteInfo.url}/rooms/${this.id}?name=${userName}`;
         });
     });
 }
@@ -66,7 +66,7 @@ const setAddRoomEventListener = async () => {
                 roomNameInput.value = ``;
                 // redirect to new room
                 const userName = window.location.href.split(`=`)[1];
-                const link = `${siteInfo.url}:${siteInfo.port}/rooms/${roomName}?name=${userName}`;
+                const link = `${siteInfo.url}/rooms/${roomName}?name=${userName}`;
                 window.location.href = link;
             }
         } catch(e) {

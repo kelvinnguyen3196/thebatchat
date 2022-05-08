@@ -101,7 +101,7 @@ addRoomButton.addEventListener(`click`, function() {
 // immediately invoked function - load room information on page
 (async () => {
     try {
-        const endpoint = `//${apiInfo.url}/api/rooms`;
+        const endpoint = `${apiInfo.url}/api/rooms`;
         const response = await fetch(`${endpoint}`);
         if(response.ok) {
             const jsonResponse = await response.json();

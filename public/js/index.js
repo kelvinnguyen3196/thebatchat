@@ -31,6 +31,7 @@ input.addEventListener(`keydown`, function(event) {
 
         // redirect to chat room page
         window.location.href = `${siteInfo.url}:${siteInfo.port}/rooms?name=${userName}`;
+        console.log(`${siteInfo.url}:${siteInfo.port}/rooms?name=${userName}`);
     }
 });
 

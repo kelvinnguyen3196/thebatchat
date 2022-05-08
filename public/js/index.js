@@ -30,7 +30,7 @@ input.addEventListener(`keydown`, function(event) {
         input.scrollIntoView(false);
 
         // redirect to chat room page
-        window.location.href = `rooms?name=${userName}`;
+        window.location.href = `${siteInfo.url}/rooms?name=${userName}`;
         console.log(`rooms?name=${userName}`);
     }
 });

@@ -74,7 +74,7 @@ body {
 }
 
 .flex-width {
-    width: min(100%, 600px);
+    width: min(100%, 900px);
     justify-content: space-between;
 }
 

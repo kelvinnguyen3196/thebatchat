@@ -33,7 +33,7 @@ const roomSetup = (roomObj) => {
         const msgElem = document.createElement(`p`);
         msgElem.textContent = message;
         messagesContainer.insertAdjacentElement(`beforeend`, msgElem);
-    });
+    }); 
 }
 // #endregion
 

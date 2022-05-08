@@ -101,7 +101,7 @@ messageInput.addEventListener(`keydown`, async function(event) {
             'name': userName,
             'message': message.value
         }
-        const link = `${apiInfo.url}/api/sendMessage/${roomName}`;
+        const link = `api/sendMessage/${roomName}`;
         try {
             const response = await fetch(link, {
                 method: 'POST',
@@ -124,7 +124,7 @@ messageInput.addEventListener(`keydown`, async function(event) {
 (async () => {
     try {
         const endpoint = `api/rooms/${roomName}`;
-            const response = await fetch(`${apiInfo.url}/${endpoint}`);
+            const response = await fetch(`${endpoint}`);
         if(response.ok) {
             const jsonResponse = await response.json();
             roomSetup(jsonResponse);

@@ -221,6 +221,7 @@ req.body =
 */ // #endregion
 app.post('/api/sendMessage/:roomName', async (req, res, next) => {
     // get arguments
+    console.log(req.body);
     const userName = req.body.name;
     const message = req.body.message;
     const roomName = req.params.roomName;

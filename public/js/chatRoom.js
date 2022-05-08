@@ -66,7 +66,7 @@ const setAddRoomEventListener = async () => {
                 roomNameInput.value = ``;
                 // redirect to new room
                 const userName = window.location.href.split(`=`)[1];
-                const link = `rooms/${roomName}?name=${userName}`;
+                const link = `${siteInfo.url}/rooms/${roomName}?name=${userName}`;
                 window.location.href = link;
             }
         } catch(e) {

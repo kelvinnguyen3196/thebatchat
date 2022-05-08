@@ -41,6 +41,15 @@ const roomSetup = (roomObj) => {
 const messageInput = document.getElementById(`message`);
 messageInput.focus();
 
+// fix window mobile window height
+const resetHeight = () => {
+    document.body.style.height = window.innerHeight + 'px';
+}
+// reset height immediately on page load
+resetHeight();
+// add event listener to resize when link bar changes window size
+window.addEventListener('resize', resetHeight);
+
 // get room name
 const urlParams = window.location.pathname.split(`/`);
 let roomName = urlParams[urlParams.length - 1];

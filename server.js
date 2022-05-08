@@ -32,7 +32,10 @@ let roomsCollection;
     }
 })()
 // #endregion
-console.log(process.env.PORT);
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    next();
+ });
 // #region static content
 app.use(express.static(path.join(__dirname, 'public')));
 

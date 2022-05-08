@@ -101,6 +101,7 @@ messageInput.addEventListener(`keydown`, async function(event) {
             'name': userName,
             'message': message.value
         }
+        console.log(body);
         const link = `${apiInfo.url}/api/sendMessage/${roomName}`;
         try {
             const response = await fetch(link, {

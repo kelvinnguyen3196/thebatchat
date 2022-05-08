@@ -3,7 +3,7 @@ import siteInfo from './siteInfo.js';
 // get reference to input element
 const input = document.getElementById(`name`);
 // immediately focus input when page loads
-input.focus().setSelectionRange(0, 999);
+input.focus();
 // shrink text area input to 1 row
 input.value = ``;
 input.style.height = 0;
